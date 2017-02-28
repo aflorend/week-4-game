@@ -71,16 +71,21 @@
 	
 	//Clicking character sets it as user's attacker, 2nd click sets as 1st defender.
 	$('.charDiv').on('click', function(){
+		if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
+			return false;
+		};
+
 		if (action === 0) {
 			$(this).addClass("attacker");
-			$(this).removeClass("charDiv");
 			console.log("attacker set");
 			action++;
 
 			$('.charDiv').on('click', function(){
+				if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
+					return false;
+				};
 				if (action === 1) {
 					$(this).addClass("defender");
-					$(this).removeClass("charDiv");
 					console.log("defender set");
 					action++
 					fightReady = true;
@@ -111,7 +116,8 @@
 
 		//Removes defender if they have no HP left and waits for user to select new defender.
 		if ($('.defender').data('healthPoints') <= 0) {
-			$('.defender').remove();
+			$('.defender').css('display','none');
+			$('.defender').removeClass('defender');
 			console.log("removed defender");
 			fightReady = false;
 			action = 1;
@@ -121,7 +127,9 @@
 		//User is dead if HP is depleted
 		if ($('.attacker').data('healthPoints') <= 0) {
 			console.log("Attacker dead");
-			fightReady = false;
+			lossCount++;
+			$('.attackBtn').css('visibility', 'hidden');
+			$('.resetBtn').css('visibility', 'visible');
 		}
 
 		//If user goes through all 3 rounds, they win. Allows for user to reset.
@@ -145,9 +153,10 @@ function reset() {
 
 	$('.resetBtn').css('visibility', 'hidden');
 
-	//Reintroduces emptied divs.
-	$('.charactersRow').html('<div class="col-md-3 charBox"><div class="charDiv" id="char1">Char1</div></div><div class="col-md-3 charBox"><div class="charDiv" id="char2">Char2</div></div><div class="col-md-3 charBox"><div class="charDiv" id="char3">Char3</div></div><div class="col-md-3 charBox"><div class="charDiv" id="char4">Char4</div></div>');
+	$('.charDiv').css('display', 'initial');
 
+	$('.attacker').removeClass('attacker');
+	
 	//Associating character data with their respective elements.
 	$('#char1').data(char1);
 	$('#char2').data(char2);
