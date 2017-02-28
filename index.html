@@ -24,19 +24,29 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-	<div class="row">
+	<div class="jumbotron">
 		<div class="container">
-			<div class="col-md-3 charDiv" id="char1">Char1</div>
-			<div class="col-md-3 charDiv" id="char2">Char2</div>
-			<div class="col-md-3 charDiv" id="char3">Char3</div>
-			<div class="col-md-3 charDiv" id="char4">Char4</div>
+			<div class="row charactersRow">
+				<div class="col-md-3 charBox"> 
+					<div class="charDiv" id="char1">Char1</div>
+				</div>
+				<div class="col-md-3 charBox">
+					<div class="charDiv" id="char2">Char2</div>
+				</div>
+				<div class="col-md-3 charBox"> 
+					<div class="charDiv" id="char3">Char3</div>
+				</div>
+				<div class="col-md-3 charBox"> 
+					<div class="charDiv" id="char4">Char4</div>
+				</div>
+			</div>
+			<div class="row center-block">
+				<button class="btn btn-default center-block attackBtn">Attack</button>
+				<button class="btn btn-default center-block resetBtn">Reset</button>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="container">
-			<button class="col-md-12 attackBtn">Attack</button>
-		</div>
-	</div>
+
 	<script type="text/javaScript" src="assets/javascript/game.js"></script>
 </body>
 </html>

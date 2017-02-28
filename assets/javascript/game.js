@@ -9,6 +9,10 @@
 
 	var action = 0;
 
+	$('.attackBtn').css('visibility', 'visible');
+
+	$('.resetBtn').css('visibility', 'hidden');
+
 	//Setting character objects.
 	var char1 = {
 		healthPoints: 100,
@@ -64,7 +68,8 @@
 	$('#char3').data(char3);
 	$('#char4').data(char4);
 
-	//Clicking character sets as attacker, 2nd click sets as 1st defender
+	
+	//Clicking character sets it as user's attacker, 2nd click sets as 1st defender.
 	$('.charDiv').on('click', function(){
 		if (action === 0) {
 			$(this).addClass("attacker");
@@ -86,6 +91,7 @@
 
 	//Attack button actions
 	$('.attackBtn').on('click', function() {
+		//Only allows attacking if both attacker and defender are set.
 		if (fightReady === true) {
 			console.log('attacked');
 			var atkAP = $('.attacker').data('attackPoints');
@@ -103,6 +109,7 @@
 
 		}
 
+		//Removes defender if they have no HP left and waits for user to select new defender.
 		if ($('.defender').data('healthPoints') <= 0) {
 			$('.defender').remove();
 			console.log("removed defender");
@@ -111,14 +118,44 @@
 			fightCount++;
 		}
 
+		//User is dead if HP is depleted
 		if ($('.attacker').data('healthPoints') <= 0) {
 			console.log("Attacker dead");
 			fightReady = false;
 		}
 
+		//If user goes through all 3 rounds, they win. Allows for user to reset.
 		if (fightCount === 3) {
 			console.log("You Win");
+			winCount++;
+			$('.attackBtn').css('visibility', 'hidden');
+			$('.resetBtn').css('visibility', 'visible');
 		}
 	});
 
-	
+//Reseting game and values.
+function reset() {
+	roundCount = 1;
+
+	fightCount = 0;
+
+	action = 0;
+
+	$('.attackBtn').css('visibility', 'visible');
+
+	$('.resetBtn').css('visibility', 'hidden');
+
+	//Reintroduces emptied divs.
+	$('.charactersRow').html('<div class="col-md-3 charBox"><div class="charDiv" id="char1">Char1</div></div><div class="col-md-3 charBox"><div class="charDiv" id="char2">Char2</div></div><div class="col-md-3 charBox"><div class="charDiv" id="char3">Char3</div></div><div class="col-md-3 charBox"><div class="charDiv" id="char4">Char4</div></div>');
+
+	//Associating character data with their respective elements.
+	$('#char1').data(char1);
+	$('#char2').data(char2);
+	$('#char3').data(char3);
+	$('#char4').data(char4);
+}
+
+//Reset Button
+$('.resetBtn').on('click', function(){
+	reset();
+});

@@ -1,0 +1,32 @@
+.charBox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.charDiv {
+	height: 200px;
+	width: 200px;
+	border-radius: 100%;
+	border-style: solid;
+	border-width: 3px;
+	border-color: blue;
+}
+
+.attacker {
+	height: 200px;
+	width: 200px;
+	border-radius: 100%;
+	border-style: solid;
+	border-width: 3px;
+	border-color: green;
+}
+
+.defender {
+	height: 200px;
+	width: 200px;
+	border-radius: 100%;
+	border-style: solid;
+	border-width: 3px;
+	border-color: red;
+}
