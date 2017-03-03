@@ -96,7 +96,7 @@ function reset() {
 	for (i=0; i < characters.length; i++) {
 		var newDiv = $('<div>');
 		newDiv.appendTo('.charactersRow').addClass('col-md-3 charBox');
-		newDiv.append('<div class="charDiv" id="char' + i + '"></div>')
+		newDiv.append('<div class="charDiv" id="char' + i + '"></div>');
 		$("#char" + i).css('background-image', characters[i].image);
 		$("#char" + i).data(characters[i])
 		$("#char" + i).append('<div class="charName"><span>' + characters[i].title + '</span></div><div class="charHealthPoints"><span>Health Points: ' + characters[i].healthPoints + '</span></div>');
@@ -108,6 +108,11 @@ function reset() {
 	$('.resetBtn').css('display', 'none');
 
 	$('.attackBtn').off('click');
+
+	$('.charDiv').hide();
+	$('.charDiv').each(function(i){
+    	$(this).delay(i * 500).fadeIn(1500);
+   	});
 
 	game();
 };
@@ -126,7 +131,7 @@ function game() {
 
 		if (action === 0) {
 			$(this).addClass('attacker')
-			$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">');
+			$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">').hide().fadeIn(800);
 			$('#info').text('Select your enemy!');
 			action++;
 		};
@@ -139,7 +144,7 @@ function game() {
 		};
 		if (action === 1) {
 			$(this).addClass('defender')
-			$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">');
+			$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">').hide().fadeIn(800);
 			$('.attackBtn').css('display', 'initial');
 			$('#info').text('Prepare to fight!');
 			action++;
@@ -151,6 +156,8 @@ function game() {
 	$('.attackBtn').on('click', function() {
 		//Only allows attacking if both attacker and defender are set.
 		if (fightReady === true) {
+			$('.versusRow, .infoRow').fadeOut(150);
+			$('.versusRow, .infoRow').fadeIn(150);
 			var atkAP = $('.attacker').data('attackPoints');
 			var atkHP = $('.attacker').data('healthPoints');
 			var defCP = $('.defender').data('counterPoints');
@@ -165,7 +172,7 @@ function game() {
 			//Printing damage and updated health info.
 			$('.defender .charHealthPoints span').text('Health Points: ' + $('.defender').data('healthPoints'));
 			$('.attacker .charHealthPoints span').text('Health Points: ' + $('.attacker').data('healthPoints'));
-			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter attacked you for ' + defCP + ' damage.</p>' );
+			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.</p>' );
 		};
 
 		//Removes defender if they have no HP left and waits for user to select new defender.
