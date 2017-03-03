@@ -10,10 +10,13 @@
 
 	var action = 0;
 
+	var noHealth = false;
+
+
+//Reset function for game.
 function reset() {
 
 	//Resetting Variables to inital values.
-
 	roundCount = 1;
 
 	fightCount = 0;
@@ -21,6 +24,8 @@ function reset() {
 	fightReady = false;
 
 	action = 0;
+
+	noHealth = false;
 
 
 	//Empties last game's character divs.
@@ -92,14 +97,14 @@ function reset() {
 			title: 'Zenyatta'
 		}];
 
-	//Creating character divs for character objects.
+	//Creating character divs with info from character objects.
 	for (i=0; i < characters.length; i++) {
 		var newDiv = $('<div>');
 		newDiv.appendTo('.charactersRow').addClass('col-md-3 charBox');
 		newDiv.append('<div class="charDiv" id="char' + i + '"></div>');
-		$("#char" + i).css('background-image', characters[i].image);
-		$("#char" + i).data(characters[i])
-		$("#char" + i).append('<div class="charName"><span>' + characters[i].title + '</span></div><div class="charHealthPoints"><span>Health Points: ' + characters[i].healthPoints + '</span></div>');
+		$("#char" + i).css('background-image', characters[i].image)
+		.data(characters[i])
+		.append('<div class="charName">' + characters[i].title + '</div><div class="charHealthPoints">Health Points: ' + characters[i].healthPoints + '</div>');
 	};
 
 	//Resetting button visibility and stops previous event listener.
@@ -121,7 +126,7 @@ function reset() {
 reset();
 
 function game() {
-	$('#info').text('Select your Hero!');
+	$('#info').text('Welcome to 8-bit Overwatch! Select your Hero.');
 
 	//Clicking 1st character sets it as user's attacker, 
 	$('.charDiv').on('click', function(){
@@ -170,8 +175,8 @@ function game() {
 			roundCount++;
 
 			//Printing damage and updated health info.
-			$('.defender .charHealthPoints span').text('Health Points: ' + $('.defender').data('healthPoints'));
-			$('.attacker .charHealthPoints span').text('Health Points: ' + $('.attacker').data('healthPoints'));
+			$('.defender .charHealthPoints').text('Health Points: ' + $('.defender').data('healthPoints'));
+			$('.attacker .charHealthPoints').text('Health Points: ' + $('.attacker').data('healthPoints'));
 			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.</p>' );
 		};
 
@@ -186,18 +191,9 @@ function game() {
 			fightCount++;
 		};
 
-		//If user goes through all 3 rounds, they win. Allows for user to reset.
-		if (fightCount === 3) {
-			$('#info').text('You defeated all enemies! Do you want to try again?');
-			winCount++;
-			$('#wins').text('Wins: ' + winCount)
-
-			$('.attackBtn').css('display', 'none');
-			$('.resetBtn').css('display', 'initial');
-		}
-
 		//User is dead if HP is depleted
 		if ($('.attacker').data('healthPoints') <= 0) {
+			noHealth = true;
 			lossCount++;
 			$('.attacker').remove();
 			$('.attackerBox').empty();
@@ -206,6 +202,18 @@ function game() {
 			$('.attackBtn').css('display', 'none');
 			$('.resetBtn').css('display', 'initial');
 		}
+
+		//If user goes through all 3 rounds with health remaining, they win. Allows for user to reset.
+		if (fightCount === 3 && noHealth === false) {
+			$('#info').text('You defeated all enemies! Do you want to try again?');
+			winCount++;
+			$('#wins').text('Wins: ' + winCount)
+
+			$('.attackBtn').css('display', 'none');
+			$('.resetBtn').css('display', 'initial');
+		}
+
+
 	});
 
 };
