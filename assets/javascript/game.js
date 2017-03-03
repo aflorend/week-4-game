@@ -119,6 +119,12 @@ function reset() {
     	$(this).delay(i * 500).fadeIn(1500);
    	});
 
+   	//Plays theme audio
+	$('#musicSource').attr('src', 'assets/audio/theme.mp3');
+	$('#music')[0].pause();
+	$('#music')[0].load();
+	$('#music')[0].play();
+
 	game();
 };
 
@@ -126,7 +132,7 @@ function reset() {
 reset();
 
 function game() {
-	$('#info').text('Welcome to 8-bit Overwatch! Select your Hero.');
+	$('#info').text('Welcome to 8-bit Overwatch! Select your Hero.').hide().delay(200).fadeIn(400);
 
 	//Clicking 1st character sets it as user's attacker, 
 	$('.charDiv').on('click', function(){
@@ -137,7 +143,7 @@ function game() {
 		if (action === 0) {
 			$(this).addClass('attacker')
 			$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">').hide().fadeIn(800);
-			$('#info').text('Select your enemy!');
+			$('#info').text('Select your enemy!').hide().delay(200).fadeIn(400);
 			action++;
 		};
 	});
@@ -151,7 +157,7 @@ function game() {
 			$(this).addClass('defender')
 			$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">').hide().fadeIn(800);
 			$('.attackBtn').css('display', 'initial');
-			$('#info').text('Prepare to fight!');
+			$('#info').text('Prepare to fight!').hide().delay(200).fadeIn(400);
 			action++;
 			fightReady = true;
 		}
@@ -161,14 +167,17 @@ function game() {
 	$('.attackBtn').on('click', function() {
 		//Only allows attacking if both attacker and defender are set.
 		if (fightReady === true) {
-			$('.versusRow, .infoRow').fadeOut(150);
-			$('.versusRow, .infoRow').fadeIn(150);
+			$('#info').empty();
+			$('.versusRow, .infoRow')
+			.fadeOut(150)
+			.fadeIn(150);
+
+
+			//Fight and round calculations.
 			var atkAP = $('.attacker').data('attackPoints');
 			var atkHP = $('.attacker').data('healthPoints');
 			var defCP = $('.defender').data('counterPoints');
 			var defHP = $('.defender').data('healthPoints');
-
-			//Fight and round calculations.
 			var attackDamage = atkAP * roundCount;
 			$('.defender').data('healthPoints', (defHP - attackDamage));
 			$('.attacker').data('healthPoints', atkHP - defCP);
@@ -177,14 +186,14 @@ function game() {
 			//Printing damage and updated health info.
 			$('.defender .charHealthPoints').text('Health Points: ' + $('.defender').data('healthPoints'));
 			$('.attacker .charHealthPoints').text('Health Points: ' + $('.attacker').data('healthPoints'));
-			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.</p>' );
+			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.</p>' ).hide().delay(200).fadeIn(400);
 		};
 
 		//Removes defender if they have no HP left and waits for user to select new defender.
 		if ($('.defender').data('healthPoints') <= 0) {
 			$('.defender').remove();
 			$('.defenderBox').empty();
-			$('#info').text('You defeated the enemy! Move on to the next round and select another enemy!');
+			$('#info').text('You defeated the enemy! Move on to the next round and select another enemy!').hide().delay(200).fadeIn(400);
 			$('.attackBtn').css('display', 'none');
 			fightReady = false;
 			action = 1;
@@ -197,20 +206,32 @@ function game() {
 			lossCount++;
 			$('.attacker').remove();
 			$('.attackerBox').empty();
-			$('#info').text('You lost! Do you want to try again?');
+			$('#info').text('YOU DIED! DEFEAT! Do you want to try again?').hide().delay(200).fadeIn(400);
 			$('#losses').text('Losses: ' + lossCount)
 			$('.attackBtn').css('display', 'none');
 			$('.resetBtn').css('display', 'initial');
+
+			//Plays defeat music.
+			$('#musicSource').attr('src', 'assets/audio/defeat.mp3');
+			$('#music')[0].pause();
+			$('#music')[0].load();
+			$('#music')[0].play();
 		}
 
 		//If user goes through all 3 rounds with health remaining, they win. Allows for user to reset.
 		if (fightCount === 3 && noHealth === false) {
-			$('#info').text('You defeated all enemies! Do you want to try again?');
+			$('#info').text('TEAM KILL! VICTORY! Do you want to try again?');
 			winCount++;
 			$('#wins').text('Wins: ' + winCount)
 
 			$('.attackBtn').css('display', 'none');
 			$('.resetBtn').css('display', 'initial');
+
+			//Plays victory music.
+			$('#musicSource').attr('src', 'assets/audio/victory.mp3');
+			$('#music')[0].pause();
+			$('#music')[0].load();
+			$('#music')[0].play();
 		}
 
 
