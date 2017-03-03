@@ -22,29 +22,49 @@
 	
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
-	<div class="jumbotron">
-		<div class="container">
-			<div class="row charactersRow">
+	<div id="wrapper">
+		<div class="jumbotron">
+			<div class="col-md-12 title">
+				<a href="https://playoverwatch.com/en-us/" target="_blank" title="Visit the official Overwatch site"><img src="assets/images/OW_logo.png"></a>
 			</div>
-			<div class="row">
-				<div class="col-md-3 col-md-offset-2 attackerBox">
-				</div>
-				<div class="col-md-3 col-md-offset-2 defenderBox">
-				</div>
-			</div>
-			<div class="row center-block">
-				<button class="btn btn-default center-block attackBtn">Attack</button>
-				<button class="btn btn-default center-block resetBtn">Reset</button>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<span id="info"></span>
+			<div class="container">
+				<div class="row charactersRow"></div>
+				<div class="row">
+					<div class="container">
+						<div class="col-md-12 infoRow text-center">
+							<span id="info"></span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+			<div class="row versusRow">
+				<div class="container">
+					<div class="col-md-3 col-md-offset-2 attackerBox">
+					</div>
+					<div class="col-md-2 buttonDiv">
+						<button class="attackBtn">Attack</button>
+						<button class="resetBtn">Reset</button>
+					</div>
+					<div class="col-md-3 defenderBox">
+					</div>
+				</div>
+			</div>
 	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<ul>
+				<li id="wins">Wins: 0</li>
+				<li id="losses">Losses: 0</li>
+			</ul>
+		</div>
+	</footer>
 
 	<script type="text/javaScript" src="assets/javascript/game.js"></script>
 </body>

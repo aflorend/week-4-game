@@ -1,7 +1,50 @@
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background: url("../images/background.jpg") no-repeat center center;
+	background-size: cover;
+}
+
+.title {
+	background-color: #444;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.title img {
+	height: 40px;
+}
+
+#wrapper {
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
+}
+
+.jumbotron {
+	background: none;
+	margin: 0;
+	padding: 0;
+}
+
+.charactersRow {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	height: 270px;
+}
+
 .charBox {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-top: 30px;
+	margin-bottom: 30px;111
 }
 
 .charDiv {
@@ -10,13 +53,134 @@
 	border-radius: 100%;
 	border-style: solid;
 	border-width: 3px;
-	border-color: blue;
+	border-color: #999;
+	background-size: contain;
+	opacity: 0.5;
+	transition: all 0.5s ease-in-out;
+
+	position: relative;
+}
+
+.charName {
+	position: absolute;
+	bottom: 75px;
+	text-align: center;
+	width: 100%;
+	visibility: hidden;
+	transition: all 0.4s ease-in-out;
+}
+
+.charName span {
+	font-size: 2em;
+	font-weight: 800;
+	color: #fff;
+	text-shadow: 1px 2px 3px #000;
+}
+
+.charDiv:hover > .charName {
+	visibility: visible;
+}
+
+.charDiv:hover {
+	opacity: 1.0;
+}
+
+.charHealthPoints {
+	position: absolute;
+	bottom: -30px;
+	text-align: center;
+	width: 100%;
+}
+
+.infoRow {
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 1.5em;
+	color: #444;
+}
+
+.versusRow {
+	background: url('../images/versusBG.gif') no-repeat bottom center;
+	background-size: cover;
+	margin: 0;
+	height: 200px;
 }
 
 .attacker {
-	border-color: green;
+	border-color: #4386fc;
+	opacity: 1.0;
+}
+
+.attacker .charName {
+	visibility: visible;
+}
+
+.defender .charName {
+	visibility: visible;
 }
 
 .defender {
-	border-color: red;
+	border-color: #f89e35;
+	opacity: 1.0;
+}
+
+.attackerBox img {
+	height: 200px;
+	object-fit: contain;
+}
+
+.defenderBox img {
+	height: 200px;
+	transform: scaleX(-1);
+	object-fit: contain;
+}
+
+.buttonDiv {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	height: 200px;
+}
+
+.attackBtn,
+.resetBtn {
+	border: none;
+	background: none;
+	width: 200px;
+	height: 60px;
+	background-color: #fff;
+	transition: all 0.5s ease-in-out;
+	
+	font-family: 'Press Start 2P', cursive;
+	color: #444;
+}
+
+.attackBtn:hover {
+	background-color: #f89e35
+}
+
+.resetBtn:hover {
+	background-color: #4386fc
+}
+
+.footer {
+	height: 60px;
+	background-color: #2e3b55;
+	font-family: 'Press Start 2P', cursive;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	text-align: center;
+}
+
+.footer li {
+	display: inline;
+	margin-left: 60px;
+	margin-right: 60px;
 }

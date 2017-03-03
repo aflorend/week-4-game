@@ -13,9 +13,6 @@
 function reset() {
 
 	//Resetting Variables to inital values.
-	winCount = 0;
-
-	lossCount = 0;
 
 	roundCount = 1;
 
@@ -31,79 +28,86 @@ function reset() {
 	
 	//Setting character objects.
 	var characters = [
-	{
-		healthPoints: 100,
+		{
+			healthPoints: 150,
 
-		attackPoints: 5,
+			attackPoints: 7,
 
-		counterPoints: 5,
+			counterPoints: 16,
 
-		image: '.../images/1.jpg',
+			image: 'url(assets/images/char0.jpg)',
 
-		name: 'char0',
+			gif: 'assets/images/char0_animation.gif',
 
-		title: 'char0'
-	},
+			name: 'char0',
 
-	{
-		healthPoints: 100,
+			title: 'D.Va'
+		},
 
-		attackPoints: 5,
+		{
+			healthPoints: 120,
 
-		counterPoints: 5,
+			attackPoints: 14,
 
-		image: '.../images/2.jpg',
+			counterPoints: 13,
 
-		name: 'char1',
+			image: 'url(assets/images/char1.jpg)',
 
-		title: 'char1'
-	},
+			gif: 'assets/images/char1_animation.gif',
 
-	{
-		healthPoints: 100,
+			name: 'char1',
 
-		attackPoints: 5,
+			title: 'Hanzo'
+		},
 
-		counterPoints: 5,
+		{
+			healthPoints: 160,
 
-		image: '.../images/3.jpg',
+			attackPoints: 6,
 
-		name: 'char2',
+			counterPoints: 16,
 
-		title: 'char2'
-	},
+			image: 'url(assets/images/char2.jpg)',
 
-	{
-		healthPoints: 100,
+			gif: 'assets/images/char2_animation.gif',
 
-		attackPoints: 5,
+			name: 'char2',
 
-		counterPoints: 5,
+			title: 'Reinhardt'
+		},
 
-		image: '.../images/4.jpg',
+		{
+			healthPoints: 90,
 
-		name: 'char3',
+			attackPoints: 28,
 
-		title: 'char3'
-	}];
+			counterPoints: 12,
+
+			image: 'url(assets/images/char3.jpg)',
+
+			gif: 'assets/images/char3_animation.gif',
+
+			name: 'char3',
+
+			title: 'Zenyatta'
+		}];
 
 	//Creating character divs for character objects.
 	for (i=0; i < characters.length; i++) {
 		var newDiv = $('<div>');
 		newDiv.appendTo('.charactersRow').addClass('col-md-3 charBox');
 		newDiv.append('<div class="charDiv" id="char' + i + '"></div>')
-		$("#char" + i).data(characters[i]).text("Health Points :" + characters[i].healthPoints);
+		$("#char" + i).css('background-image', characters[i].image);
+		$("#char" + i).data(characters[i])
+		$("#char" + i).append('<div class="charName"><span>' + characters[i].title + '</span></div><div class="charHealthPoints"><span>Health Points: ' + characters[i].healthPoints + '</span></div>');
 	};
 
-	//Associating character data with their respective elements.
-	// $('#char1').data(char1);
-	// $('#char2').data(char2);
-	// $('#char3').data(char3);
-	// $('#char4').data(char4);
+	//Resetting button visibility and stops previous event listener.
+	$('.attackBtn').css('display', 'none');
 
-	$('.attackBtn').css('visibility', 'hidden');
+	$('.resetBtn').css('display', 'none');
 
-	$('.resetBtn').css('visibility', 'hidden');
+	$('.attackBtn').off('click');
 
 	game();
 };
@@ -112,82 +116,90 @@ function reset() {
 reset();
 
 function game() {
-$('#info').text('Select your character!');
+	$('#info').text('Select your Hero!');
 
-//Clicking character sets it as user's attacker, 2nd click sets as 1st defender.
-$('.charDiv').on('click', function(){
-	if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
-		return false;
-	};
+	//Clicking 1st character sets it as user's attacker, 
+	$('.charDiv').on('click', function(){
+		if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
+			return false;
+		};
 
-	if (action === 0) {
-		$(this).addClass('attacker').appendTo('.attackerBox');
-		$('#info').text('Select your enemy!');
-		action++;
-	};
-});
+		if (action === 0) {
+			$(this).addClass('attacker')
+			$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">');
+			$('#info').text('Select your enemy!');
+			action++;
+		};
+	});
 
-$('.charDiv').on('click', function(){
-	if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
-		return false;
-	};
-	if (action === 1) {
-		$(this).addClass('defender').appendTo('.defenderBox');
-		$('.attackBtn').css('visibility', 'visible');
-		$('#info').text('Attack!');
-		action++
-		fightReady = true;
-	}
-});
+	//2nd click sets as defender.
+	$('.charDiv').on('click', function(){
+		if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
+			return false;
+		};
+		if (action === 1) {
+			$(this).addClass('defender')
+			$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">');
+			$('.attackBtn').css('display', 'initial');
+			$('#info').text('Prepare to fight!');
+			action++;
+			fightReady = true;
+		}
+	});
 
-//Attack button actions
-$('.attackBtn').on('click', function() {
-	//Only allows attacking if both attacker and defender are set.
-	if (fightReady === true) {
-		console.log('attacked');
-		var atkAP = $('.attacker').data('attackPoints');
-		var atkHP = $('.attacker').data('healthPoints');
-		var defCP = $('.defender').data('counterPoints');
-		var defHP = $('.defender').data('healthPoints');
+	//Attack button actions
+	$('.attackBtn').on('click', function() {
+		//Only allows attacking if both attacker and defender are set.
+		if (fightReady === true) {
+			var atkAP = $('.attacker').data('attackPoints');
+			var atkHP = $('.attacker').data('healthPoints');
+			var defCP = $('.defender').data('counterPoints');
+			var defHP = $('.defender').data('healthPoints');
 
-		//Fight and round calculations.
-		var attackDamage = atkAP * roundCount;
-		$('.defender').data('healthPoints', (defHP - attackDamage));
-		$('.attacker').data('healthPoints', atkHP - defCP);
-		roundCount++;
+			//Fight and round calculations.
+			var attackDamage = atkAP * roundCount;
+			$('.defender').data('healthPoints', (defHP - attackDamage));
+			$('.attacker').data('healthPoints', atkHP - defCP);
+			roundCount++;
 
-		//Printing damage and updated health info.
-		$('.defender').text('Health Points :' + $('.defender').data('healthPoints'));
-		$('.attacker').text('Health Points :' + $('.attacker').data('healthPoints'));
-		$('#info').text('You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage. ' + $('.defender').data('title') + ' counter attacked you for ' + defCP + ' damage.' );
-	};
+			//Printing damage and updated health info.
+			$('.defender .charHealthPoints span').text('Health Points: ' + $('.defender').data('healthPoints'));
+			$('.attacker .charHealthPoints span').text('Health Points: ' + $('.attacker').data('healthPoints'));
+			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter attacked you for ' + defCP + ' damage.</p>' );
+		};
 
-	//Removes defender if they have no HP left and waits for user to select new defender.
-	if ($('.defender').data('healthPoints') <= 0) {
-		$('.defender').remove();
-		$('#info').text('You defeated the enemy! Move on to the next round and select another enemy!');
-		$('.attackBtn').css('visibility', 'hidden');
-		fightReady = false;
-		action = 1;
-		fightCount++;
-	};
+		//Removes defender if they have no HP left and waits for user to select new defender.
+		if ($('.defender').data('healthPoints') <= 0) {
+			$('.defender').remove();
+			$('.defenderBox').empty();
+			$('#info').text('You defeated the enemy! Move on to the next round and select another enemy!');
+			$('.attackBtn').css('display', 'none');
+			fightReady = false;
+			action = 1;
+			fightCount++;
+		};
 
-	//User is dead if HP is depleted
-	if ($('.attacker').data('healthPoints') <= 0) {
-		console.log('Attacker dead');
-		lossCount++;
-		$('.attackBtn').css('visibility', 'hidden');
-		$('.resetBtn').css('visibility', 'visible');
-	}
+		//If user goes through all 3 rounds, they win. Allows for user to reset.
+		if (fightCount === 3) {
+			$('#info').text('You defeated all enemies! Do you want to try again?');
+			winCount++;
+			$('#wins').text('Wins: ' + winCount)
 
-	//If user goes through all 3 rounds, they win. Allows for user to reset.
-	if (fightCount === 3) {
-		$('#info').text('You defeated all enemies! Do you want to try again?');
-		winCount++;
-		$('.attackBtn').css('visibility', 'hidden');
-		$('.resetBtn').css('visibility', 'visible');
-	}
-});
+			$('.attackBtn').css('display', 'none');
+			$('.resetBtn').css('display', 'initial');
+		}
+
+		//User is dead if HP is depleted
+		if ($('.attacker').data('healthPoints') <= 0) {
+			lossCount++;
+			$('.attacker').remove();
+			$('.attackerBox').empty();
+			$('#info').text('You lost! Do you want to try again?');
+			$('#losses').text('Losses: ' + lossCount)
+			$('.attackBtn').css('display', 'none');
+			$('.resetBtn').css('display', 'initial');
+		}
+	});
 
 };
 
