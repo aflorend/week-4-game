@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 
 	//Reset function for game.
-	function reset() {
+	function reset() {	
 
 		//Resetting Variables to inital values.
 		roundCount = 1;
