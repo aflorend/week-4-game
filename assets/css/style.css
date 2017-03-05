@@ -12,6 +12,20 @@ body {
 	background-size: cover;
 }
 
+/*Intro information*/
+.scroll {
+	height: 100vh;
+	width: 100vw;
+	background-color: #444; 
+
+	color: #fff;
+	font-size: 3.5vmin;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 /*Top Half of Page*/
 .topHalf {
 	height: 50vh;
