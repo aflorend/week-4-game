@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function () {
 	/*
 	  * Normalized hide address bar for iOS & Android
@@ -40,259 +41,250 @@ $(document).ready(function () {
 	
 	//Setting variables.
 		var winCount = 0;
+=======
+	var winCount = 0;
+>>>>>>> parent of 27edc1e... Final Game. All function, styling, and effects added. Fully mobile responsive.
 
-		var lossCount = 0;
+	var lossCount = 0;
 
-		var roundCount = 1;
+	var roundCount = 1;
 
-		var fightCount = 0;
+	var fightCount = 0;
 
-		var fightReady = false;
+	var fightReady = false;
 
-		var action = 0;
+	var action = 0;
 
-		var noHealth = false;
-
-
-	//Reset function for game.
-	function reset() {
-
-		//Resetting Variables to inital values.
-		roundCount = 1;
-
-		fightCount = 0;
-
-		fightReady = false;
-
-		action = 0;
-
-		noHealth = false;
+	var noHealth = false;
 
 
-		//Empties last game's character divs.
-		$('.charactersRow, .attackerBox, .defenderBox').empty();
-		
-		//Setting character objects.
-		var characters = [
-			{
-				healthPoints: 150,
+//Reset function for game.
+function reset() {
 
-				attackPoints: 7,
+	//Resetting Variables to inital values.
+	roundCount = 1;
 
-				counterPoints: 16,
+	fightCount = 0;
 
-				image: 'url(assets/images/char0.jpg)',
+	fightReady = false;
 
-				gif: 'assets/images/char0_animation.gif',
+	action = 0;
 
-				name: 'char0',
+	noHealth = false;
 
-				title: 'D.Va'
-			},
 
-			{
-				healthPoints: 120,
+	//Empties last game's character divs.
+	$('.charactersRow, .attackerBox, .defenderBox').empty();
+	
+	//Setting character objects.
+	var characters = [
+		{
+			healthPoints: 150,
 
-				attackPoints: 14,
+			attackPoints: 7,
 
-				counterPoints: 13,
+			counterPoints: 16,
 
-				image: 'url(assets/images/char1.jpg)',
+			image: 'url(assets/images/char0.jpg)',
 
-				gif: 'assets/images/char1_animation.gif',
+			gif: 'assets/images/char0_animation.gif',
 
-				name: 'char1',
+			name: 'char0',
 
-				title: 'Hanzo'
-			},
+			title: 'D.Va'
+		},
 
-			{
-				healthPoints: 160,
+		{
+			healthPoints: 120,
 
-				attackPoints: 6,
+			attackPoints: 14,
 
-				counterPoints: 16,
+			counterPoints: 13,
 
-				image: 'url(assets/images/char2.jpg)',
+			image: 'url(assets/images/char1.jpg)',
 
-				gif: 'assets/images/char2_animation.gif',
+			gif: 'assets/images/char1_animation.gif',
 
-				name: 'char2',
+			name: 'char1',
 
-				title: 'Reinhardt'
-			},
+			title: 'Hanzo'
+		},
 
-			{
-				healthPoints: 90,
+		{
+			healthPoints: 160,
 
-				attackPoints: 28,
+			attackPoints: 6,
 
-				counterPoints: 12,
+			counterPoints: 16,
 
-				image: 'url(assets/images/char3.jpg)',
+			image: 'url(assets/images/char2.jpg)',
 
-				gif: 'assets/images/char3_animation.gif',
+			gif: 'assets/images/char2_animation.gif',
 
-				name: 'char3',
+			name: 'char2',
 
-				title: 'Zenyatta'
-			}];
+			title: 'Reinhardt'
+		},
 
-		//Creating character divs with info from character objects.
-		for (i=0; i < characters.length; i++) {
-			var newDiv = $('<div>');
-			newDiv.appendTo('.charactersRow').addClass('charBox');
-			newDiv.append('<div class="charDiv" id="char' + i + '"></div><div class="charHealthPoints">HP: ' + characters[i].healthPoints + '</div>');
-			
-			$("#char" + i).css('background-image', characters[i].image)
-			.append('<div class="charName">' + characters[i].title + '</div>')
-			.data(characters[i]);
+		{
+			healthPoints: 90,
+
+			attackPoints: 28,
+
+			counterPoints: 12,
+
+			image: 'url(assets/images/char3.jpg)',
+
+			gif: 'assets/images/char3_animation.gif',
+
+			name: 'char3',
+
+			title: 'Zenyatta'
+		}];
+
+	//Creating character divs with info from character objects.
+	for (i=0; i < characters.length; i++) {
+		var newDiv = $('<div>');
+		newDiv.appendTo('.charactersRow').addClass('col-md-3 charBox');
+		newDiv.append('<div class="charDiv" id="char' + i + '"></div>');
+		$("#char" + i).css('background-image', characters[i].image)
+		.data(characters[i])
+		.append('<div class="charName">' + characters[i].title + '</div><div class="charHealthPoints">Health Points: ' + characters[i].healthPoints + '</div>');
+	};
+
+	//Resetting button visibility and stops previous event listener.
+	$('.attackBtn').css('display', 'none');
+
+	$('.resetBtn').css('display', 'none');
+
+	$('.attackBtn').off('click');
+
+	$('.charDiv').hide();
+	$('.charDiv').each(function(i){
+    	$(this).delay(i * 500).fadeIn(1500);
+   	});
+
+   	//Plays theme audio
+	$('#musicSource').attr('src', 'assets/audio/theme.mp3');
+	$('#music')[0].pause();
+	$('#music')[0].load();
+	$('#music')[0].play();
+
+	game();
+};
+
+//Starting game with reset values.
+reset();
+
+function game() {
+	$('#info').text('Welcome to 8-bit Overwatch! Select your Hero.').hide().delay(200).fadeIn(400);
+
+	//Clicking 1st character sets it as user's attacker, 
+	$('.charDiv').on('click', function(){
+		if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
+			return false;
 		};
 
-		//Resetting button visibility and stops previous event listener.
-		$('.attackBtn').css('display', 'none');
-
-		$('.resetBtn').css('display', 'none');
-
-		$('.attackBtn').off('click');
-
-		//Drawing characters onto screen.
-		$('.charDiv')
-		.hide()
-		.each(function(i){
-	    	$(this).delay(i * 500).fadeIn(1500);
-	   	});
-
-	   	$('.charHealthPoints')
-		.hide()
-		.each(function(i){
-	    	$(this).delay(i * 500).fadeIn(1500);
-	   	});
-
-	   	//Plays theme audio
-		$('#musicSource').attr('src', 'assets/audio/theme.mp3');
-		$('#music')[0].pause();
-		$('#music')[0].load();
-		$('#music')[0].play();
-
-		game();
-	};
-
-	function game() {
-		$('#info').text('Welcome to 8-bit Overwatch! Select your Hero.').hide().delay(200).fadeIn(400);
-
-		//Clicking 1st character sets it as user's attacker, 
-		$('.charDiv').on('click', function(){
-			if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
-				return false;
-			};
-
-			if (action === 0) {
-				$(this).addClass('attacker')
-				$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">').hide().fadeIn(800);
-				$('#info').text('Select your enemy!').hide().delay(200).fadeIn(400);
-				action++;
-			};
-		});
-
-		//2nd click sets as defender.
-		$('.charDiv').on('click', function(){
-			if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
-				return false;
-			};
-			if (action === 1) {
-				$(this).addClass('defender')
-				$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">').hide().fadeIn(800);
-				$('.attackBtn').css('display', 'initial');
-				$('#info').text('Prepare to Attack!').hide().delay(200).fadeIn(400);
-				action++;
-				fightReady = true;
-			}
-		});
-
-		//Attack button actions
-		$('.attackBtn').on('click', function() {
-			//Only allows attacking if both attacker and defender are set.
-			if (fightReady === true) {
-				$('#sfx')[0].pause();
-				$('#sfx')[0].play();
-				$('#info').empty();
-				$('.bottomHalf, .infoRow')
-				.fadeOut(280)
-				.fadeIn(280);
-
-				//Fight and round calculations.
-				var atkAP = $('.attacker').data('attackPoints');
-				var atkHP = $('.attacker').data('healthPoints');
-				var defCP = $('.defender').data('counterPoints');
-				var defHP = $('.defender').data('healthPoints');
-				var attackDamage = atkAP * roundCount;
-				$('.defender').data('healthPoints', (defHP - attackDamage));
-				$('.attacker').data('healthPoints', atkHP - defCP);
-				roundCount++;
-
-				//Printing damage and updated health info.
-				$('.defender').siblings().text('HP: ' + $('.defender').data('healthPoints'));
-				$('.attacker').siblings().text('HP: ' + $('.attacker').data('healthPoints'));
-				$('#info').text('You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage. ' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.' ).hide().delay(200).fadeIn(400);
-			};
-
-			//User is dead if HP is depleted
-			if ($('.attacker').data('healthPoints') <= 0) {
-				noHealth = true;
-				lossCount++;
-				$('.attacker').siblings().remove();
-				$('.attacker').remove();
-				$('.attackerBox').empty();
-				$('#info').text('YOU DIED! DEFEAT! Do you want to try again?').hide().delay(200).fadeIn(400);
-				$('#losses').text('Losses: ' + lossCount)
-				$('.attackBtn').css('display', 'none');
-				$('.resetBtn').css('display', 'initial');
-
-				//Plays defeat music.
-				$('#musicSource').attr('src', 'assets/audio/defeat.mp3');
-				$('#music')[0].pause();
-				$('#music')[0].load();
-				$('#music')[0].play();
-			}
-
-			//Removes defender if they have no HP left and waits for user to select new defender.
-			if ($('.defender').data('healthPoints') <= 0 && noHealth === false) {
-				$('.defender').siblings().remove();
-				$('.defender').remove();
-				$('.defenderBox').empty();
-				$('#info').text('You defeated the enemy! Move on to the next round and select another enemy!').hide().delay(200).fadeIn(400);
-				$('.attackBtn').css('display', 'none');
-				fightReady = false;
-				action = 1;
-				fightCount++;
-			};
-
-			//If user goes through all 3 rounds with health remaining, they win. Allows for user to reset.
-			if (fightCount === 3 && noHealth === false) {
-				$('#info').text('TEAM KILL! VICTORY! Do you want to try again?');
-				winCount++;
-				$('#wins').text('Wins: ' + winCount)
-
-				$('.attackBtn').css('display', 'none');
-				$('.resetBtn').css('display', 'initial');
-
-				//Plays victory music.
-				$('#musicSource').attr('src', 'assets/audio/victory.mp3');
-				$('#music')[0].pause();
-				$('#music')[0].load();
-				$('#music')[0].play();
-			};
-		});
-	};
-
-	//Reset Button
-	$('.resetBtn').on('click', function(){
-		reset();
+		if (action === 0) {
+			$(this).addClass('attacker')
+			$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">').hide().fadeIn(800);
+			$('#info').text('Select your enemy!').hide().delay(200).fadeIn(400);
+			action++;
+		};
 	});
 
-	//Starting game with reset values.
+	//2nd click sets as defender.
+	$('.charDiv').on('click', function(){
+		if ( $(this).hasClass('attacker') || $(this).hasClass('defender') ) {
+			return false;
+		};
+		if (action === 1) {
+			$(this).addClass('defender')
+			$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">').hide().fadeIn(800);
+			$('.attackBtn').css('display', 'initial');
+			$('#info').text('Prepare to fight!').hide().delay(200).fadeIn(400);
+			action++;
+			fightReady = true;
+		}
+	});
+
+	//Attack button actions
+	$('.attackBtn').on('click', function() {
+		//Only allows attacking if both attacker and defender are set.
+		if (fightReady === true) {
+			$('#info').empty();
+			$('.versusRow, .infoRow')
+			.fadeOut(150)
+			.fadeIn(150);
+
+
+			//Fight and round calculations.
+			var atkAP = $('.attacker').data('attackPoints');
+			var atkHP = $('.attacker').data('healthPoints');
+			var defCP = $('.defender').data('counterPoints');
+			var defHP = $('.defender').data('healthPoints');
+			var attackDamage = atkAP * roundCount;
+			$('.defender').data('healthPoints', (defHP - attackDamage));
+			$('.attacker').data('healthPoints', atkHP - defCP);
+			roundCount++;
+
+			//Printing damage and updated health info.
+			$('.defender .charHealthPoints').text('Health Points: ' + $('.defender').data('healthPoints'));
+			$('.attacker .charHealthPoints').text('Health Points: ' + $('.attacker').data('healthPoints'));
+			$('#info').html('<p>You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage.</p>' + '<p>' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.</p>' ).hide().delay(200).fadeIn(400);
+		};
+
+		//Removes defender if they have no HP left and waits for user to select new defender.
+		if ($('.defender').data('healthPoints') <= 0) {
+			$('.defender').remove();
+			$('.defenderBox').empty();
+			$('#info').text('You defeated the enemy! Move on to the next round and select another enemy!').hide().delay(200).fadeIn(400);
+			$('.attackBtn').css('display', 'none');
+			fightReady = false;
+			action = 1;
+			fightCount++;
+		};
+
+		//User is dead if HP is depleted
+		if ($('.attacker').data('healthPoints') <= 0) {
+			noHealth = true;
+			lossCount++;
+			$('.attacker').remove();
+			$('.attackerBox').empty();
+			$('#info').text('YOU DIED! DEFEAT! Do you want to try again?').hide().delay(200).fadeIn(400);
+			$('#losses').text('Losses: ' + lossCount)
+			$('.attackBtn').css('display', 'none');
+			$('.resetBtn').css('display', 'initial');
+
+			//Plays defeat music.
+			$('#musicSource').attr('src', 'assets/audio/defeat.mp3');
+			$('#music')[0].pause();
+			$('#music')[0].load();
+			$('#music')[0].play();
+		}
+
+		//If user goes through all 3 rounds with health remaining, they win. Allows for user to reset.
+		if (fightCount === 3 && noHealth === false) {
+			$('#info').text('TEAM KILL! VICTORY! Do you want to try again?');
+			winCount++;
+			$('#wins').text('Wins: ' + winCount)
+
+			$('.attackBtn').css('display', 'none');
+			$('.resetBtn').css('display', 'initial');
+
+			//Plays victory music.
+			$('#musicSource').attr('src', 'assets/audio/victory.mp3');
+			$('#music')[0].pause();
+			$('#music')[0].load();
+			$('#music')[0].play();
+		}
+
+
+	});
+
+};
+
+//Reset Button
+$('.resetBtn').on('click', function(){
 	reset();
-
 });
-

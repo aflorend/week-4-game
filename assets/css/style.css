@@ -12,53 +12,42 @@ body {
 	background-size: cover;
 }
 
-/*Top Half of Page*/
-.topHalf {
-	height: 50vh;
-	width: 100vw;
-}
-
-/*Title Header*/
 .title {
 	background-color: #444;
-	width: 100%;
-	height: 10%;
+	height: 60px;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.title a {
-	height: 80%;
-	display: flex;
+	justify-content: space-around;
 	align-items: center;
 }
 
 .title img {
-	height: 100%;
+	height: 40px;
 }
 
-/*Character Select*/
+#wrapper {
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
+}
+
 .charactersRow {
-	width: 100%;
-	display: inline-flex;
-	justify-content: center;
-	height: 80%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .charBox {
-	width: 15%;
-	margin-left: 1%;
-	margin-right: 1%;
-	margin-top: auto;
-	margin-bottom: 1%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	min-height: 270px;
 }
 
 .charDiv {
-	box-sizing: content-box;
-	width: 100%;
-	padding-top: 100%;
-
+	min-height: 240px;
+	min-width: 240px;
 	border-radius: 100%;
 	border-style: solid;
 	border-width: 3px;
@@ -70,14 +59,13 @@ body {
 }
 
 .charName {
-	text-align: center;
 	position: absolute;
-	top: 0;
-	margin-top: 60%;
+	bottom: 90px;
+	text-align: center;
 	width: 100%;
 	opacity: 0;
 	transition: all 0.4s ease-in-out;
-	font-size: 2vmin;
+	font-size: 2em;
 	font-weight: 800;
 	font-style: italic;
 	text-transform: uppercase;
@@ -95,9 +83,34 @@ body {
 }
 
 .charHealthPoints {
+	position: absolute;
+	bottom: -30px;
 	text-align: center;
-	font-size: 2vmin;
-	white-space: nowrap;
+	width: 100%;
+}
+
+.infoRow {
+	min-height: 100px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 1vw;
+	color: #444;
+}
+
+.versusRow {
+	background: url('../images/versusBG.gif') no-repeat bottom center;
+	background-size: cover;
+	margin: 0;
+	min-height: 260px;
+	height: 100%;
+}
+
+.versusContainer {
+	display: flex;
+	align-items: flex-end;
 }
 
 .attacker {
@@ -125,6 +138,7 @@ body {
 	transform: scale(1);
 }
 
+
 .defender {
 	border-color: #f89e35;
 	opacity: 1.0;
@@ -134,54 +148,9 @@ body {
 	filter: saturate(100%);
 }
 
-/*Info and attack data*/
-.infoRow {
-	height: 10%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	font-family: 'Press Start 2P', cursive;
-	font-size: 1vmax;
-	color: #444;;
-}
-
-#info {
-	margin: 0;
-}
-
-
-/*Bottom half of page*/
-.bottomHalf {
-	height: 50vh
-}
-
-.versusRow {
-	background: url('../images/versusBG.gif') no-repeat bottom center;
-	background-size: cover;
-	height: 90%;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-}
-
-.attackerBox {
-	width: 30%;
-}
-
 .attackerBox img {
 	width: 100%;
 	height: auto;
-}
-
-.defenderBox {
-	width: 30%;
-}
-
-.buttonDiv {
-	width: 20%;
-	height: 100%;
-	display: flex;
-	align-items: center;
 }
 
 .defenderBox img {
@@ -190,19 +159,24 @@ body {
 	transform: scaleX(-1);
 }
 
-/*Buttons*/
+.buttonDiv {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	min-height: 260px;
+}
+
 .attackBtn,
 .resetBtn {
 	border: none;
 	background: none;
 	width: 100%;
-	height: 15%;
-
+	height: 50px;
 	background-color: #fff;
 	transition: all 0.5s ease-in-out;
 	
 	font-family: 'Press Start 2P', cursive;
-	font-size: 1vmax;
 	color: #444;
 }
 
@@ -214,11 +188,8 @@ body {
 	background-color: #4386fc
 }
 
-
-/*Bottom score tracker*/
-.score {
-	width: 100%;
-	height: 10%;
+.footer {
+	height: 60px;
 	background-color: #2e3b55;
 	font-family: 'Press Start 2P', cursive;
 	color: #fff;
@@ -227,12 +198,11 @@ body {
 	align-items: center;
 	text-decoration: none;
 	text-align: center;
-	margin: 0;
 }
 
-.score li {
+.footer li {
 	display: inline;
-	margin-left: .5vmin;
-	margin-right: .5vmin;
-	font-size: 0.7vmax;
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 0.7vw;
 }
