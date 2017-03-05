@@ -1,0 +1,14 @@
+{
+  "short_name": "8-bit Overwatch",
+  "name": "8-bit Overwatch Game",
+  "icons": [
+    {
+      "src": "/assets/images/ow-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index-mobile.html",
+  "display": "standalone",
+  "orientation": "landscape"
+}

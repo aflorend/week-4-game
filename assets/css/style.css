@@ -10,6 +10,9 @@ body {
 body {
 	background: url("../images/background.jpg") no-repeat center center;
 	background-size: cover;
+
+	font-family: Helvetica Neue, Helvetica, Ariel, sans-serif; 
+	font-size: 1em;
 }
 
 /*Intro information*/
@@ -29,6 +32,11 @@ body {
 /*Top Half of Page*/
 .topHalf {
 	height: 50vh;
+	width: 100vw;
+}
+
+.topHalf-mobile {
+	height: 45vh;
 	width: 100vw;
 }
 
