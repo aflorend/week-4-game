@@ -15,6 +15,8 @@ $(document).ready(function () {
 		var noHealth = false;
 
 
+
+
 	//Reset function for game.
 	function reset() {	
 
@@ -257,6 +259,13 @@ $(document).ready(function () {
 		$(this).remove();
 		reset();
 	});
+
+	// Removes intro div after scrolling
+    $(window).scroll(function() {
+    if ($(window).scrollTop() >300) {
+        $('.scroll').slideUp(2000);
+    	};
+    });
 
 });
 
