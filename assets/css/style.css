@@ -192,7 +192,8 @@ body {
 
 /*Buttons*/
 .attackBtn,
-.resetBtn {
+.resetBtn,
+.startBtn {
 	border: none;
 	background: none;
 	width: 100%;
@@ -206,11 +207,20 @@ body {
 	color: #444;
 }
 
+.attackBtn,
+.resetBtn {
+	display: none;
+}
+
 .attackBtn:hover {
 	background-color: #f89e35
 }
 
 .resetBtn:hover {
+	background-color: #4386fc
+}
+
+.startBtn:hover {
 	background-color: #4386fc
 }
 

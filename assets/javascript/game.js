@@ -252,8 +252,11 @@ $(document).ready(function () {
 		reset();
 	});
 
-	//Starting game with reset values.
-	reset();
+	// Start button to begin, ensuring music plays with user input.
+	$('.startBtn').on('click', function() {
+		$(this).remove();
+		reset();
+	});
 
 });
 
