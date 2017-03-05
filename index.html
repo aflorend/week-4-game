@@ -9,9 +9,6 @@
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-	<!-- jQuery UI -->
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-
 	<!-- Reset -->
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	
@@ -30,50 +27,57 @@
 	
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+	
+	<!-- External Javscript -->
+	<script type="text/javaScript" src="assets/javascript/game.js"></script>
 </head>
+
 <body>
-	<div id="wrapper">
-		<div class="row">
-			<div class="col-md-12 title">
-				<a href="https://playoverwatch.com/en-us/" target="_blank" title="Visit the official Overwatch site"><img src="assets/images/OW_logo.png"></a>
-				<audio controls id="music" loop>
-					<source id="musicSource" src='assets/audio/theme.mp3'>
-				</audio>
-			</div>
+	<div class="topHalf">
+		<div class="title">
+			<a href="https://playoverwatch.com/en-us/" target="_blank" title="Visit the official Overwatch site"><img src="assets/images/OW_logo.png" alt="Overwatch Logo"></a>
+			<audio id="music" loop>
+				<source id="musicSource" src='assets/audio/theme.mp3'>
+			</audio>
+			<audio id="sfx" preload="auto">
+			    <source src="assets/audio/attack.mp3">
+			</audio>
 		</div>
-		<div class="container">
-			<div class="row charactersRow"></div>
-			<div class="row">
-				<div class="container">
-					<div class="col-md-12 infoRow text-center">
-						<span id="info"></span>
-					</div>
-				</div>
-			</div>
+
+		<div class="charactersRow"></div>
+		
+		<div class="infoRow text-center">
+				<p id="info"></p>
 		</div>
-			<div class="row versusRow">
-				<div class="container versusContainer">
-					<div class="col-md-3 col-md-offset-2 attackerBox">
-					</div>
-					<div class="col-md-2 buttonDiv">
-						<button class="attackBtn">Attack</button>
-						<button class="resetBtn">Reset</button>
-					</div>
-					<div class="col-md-3 defenderBox">
-					</div>
-				</div>
-			</div>
+
 	</div>
 
-	<footer class="footer">
-		<div class="container">
-			<ul>
-				<li id="wins">Wins: 0</li>
-				<li id="losses">Losses: 0</li>
-			</ul>
-		</div>
-	</footer>
+	<div class="bottomHalf">
 
-	<script type="text/javaScript" src="assets/javascript/game.js"></script>
+		<div class="versusRow">
+			<div class="attackerBox">
+			</div>
+
+			<div class="buttonDiv">
+				<button class="attackBtn">Attack</button>
+				<button class="resetBtn">Reset</button>
+			</div>
+
+			<div class="defenderBox">
+			</div>
+		</div>
+
+		<div class="score">
+			<div class="container">
+				<ul>
+					<li id="wins">Wins: 0</li>
+					<li id="losses">Losses: 0</li>
+				</ul>
+			</div>
+		</div>
+	
+	</div>
+
+	
 </body>
 </html>
