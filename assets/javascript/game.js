@@ -152,7 +152,7 @@ $(document).ready(function () {
 
 			if (action === 0) {
 				$(this).addClass('attacker')
-				$('.attackerBox').append('<img src="'+ $('.attacker').data('gif') + '">').hide().fadeIn(800);
+				$('.attackerBox').append('<div class="healthBox"><progress id="atkHealthBar" value="' + $(this).data('healthPoints') + '" max="' + $(this).data('healthPoints') + '"></progress></div><img src="'+ $('.attacker').data('gif') + '">').hide().fadeIn(800);
 				$('#info').text('Select your enemy!').hide().delay(200).fadeIn(400);
 				action++;
 			};
@@ -165,7 +165,7 @@ $(document).ready(function () {
 			};
 			if (action === 1) {
 				$(this).addClass('defender')
-				$('.defenderBox').append('<img src="' + $('.defender').data('gif') + '">').hide().fadeIn(800);
+				$('.defenderBox').append('<div class="healthBox"><progress id="defHealthBar" value="' + $(this).data('healthPoints') + '" max="' + $(this).data('healthPoints') + '"></progress></div><img src="' + $('.defender').data('gif') + '">').hide().fadeIn(800);
 				$('.attackBtn').css('display', 'initial');
 				$('#info').text('Prepare to Attack!').hide().delay(200).fadeIn(400);
 				action++;
@@ -194,9 +194,14 @@ $(document).ready(function () {
 				$('.attacker').data('healthPoints', atkHP - defCP);
 				roundCount++;
 
-				//Printing damage and updated health info.
+				//Printing damage and updated health info on HP text and Health Bar.
 				$('.defender').siblings().text('HP: ' + $('.defender').data('healthPoints'));
 				$('.attacker').siblings().text('HP: ' + $('.attacker').data('healthPoints'));
+
+				$('#atkHealthBar').attr('value', $('.attacker').data('healthPoints'))
+				$('#defHealthBar').attr('value', $('.defender').data('healthPoints'))
+
+				// Updates info text
 				$('#info').text('You attacked ' + $('.defender').data('title') + ' for ' + attackDamage + ' damage. ' + $('.defender').data('title') + ' counter-attacked you for ' + defCP + ' damage.' ).hide().delay(200).fadeIn(400);
 			};
 

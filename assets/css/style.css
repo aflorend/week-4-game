@@ -197,6 +197,16 @@ body {
 	width: 30%;
 }
 
+.healthBox {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+progress {
+	box-shadow:  0px 0px 64px 11px rgba(0,0,0,0.75);
+}
+
 .buttonDiv {
 	width: 20%;
 	height: 100%;
